@@ -232,42 +232,44 @@ export default function Login() {
              </button>
           </div>
         </div>
-      </div>
+               className="text-white hover:underline decoration-zinc-500 underline-offset-4"
+            >
+              {isLogin ? "Create an account" : "Sign in"}
+            </button>
+          </div>
+        </div>
+      </section>
 
-      {/* RIGHT SIDE: Video Carousel */}
-      <div className="hidden lg:flex w-1/2 relative overflow-hidden m-4 ml-0 rounded-3xl bg-gradient-to-br from-indigo-900 via-purple-900 to-zinc-900">
-        
-        {/* Fallback pattern if video takes time to load */}
-        <div className="absolute inset-0 opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"></div>
+      {/* Right side: Dynamic Video Media Panel */}
+      <aside className="hidden lg:flex w-1/2 relative bg-zinc-900 overflow-hidden" aria-hidden="true">
+        <div className="absolute inset-0 z-0">
+           <AnimatePresence mode="popLayout">
+             <motion.video
+               key={currentMediaIndex}
+               src={VIDEOS[currentMediaIndex]}
+               autoPlay
+               muted
+               loop
+               playsInline
+               className="absolute inset-0 w-full h-full object-cover"
+               initial={{ opacity: 0, scale: 1.05 }}
+               animate={{ opacity: 1, scale: 1 }}
+               exit={{ opacity: 0 }}
+               transition={{ duration: 1.5, ease: "easeInOut" }}
+             />
+           </AnimatePresence>
+           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
+        </div>
 
-        <AnimatePresence mode="wait">
-           <motion.video 
-             key={currentMediaIndex}
-             src={VIDEOS[currentMediaIndex]}
-             autoPlay
-             muted
-             loop
-             playsInline
-             initial={{ opacity: 0, scale: 1.05 }}
-             animate={{ opacity: 1, scale: 1 }}
-             exit={{ opacity: 0 }}
-             transition={{ duration: 1.2, ease: "easeInOut" }}
-             className="absolute inset-0 w-full h-full object-cover"
-           />
-        </AnimatePresence>
-        
-        {/* Overlay gradient for text readability (ensures text is always visible) */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
-        
-        {/* Quote overlay */}
-        <div className="absolute bottom-12 left-12 right-12 z-20 text-white">
+        <div className="relative z-20 w-full flex flex-col justify-end p-16">
            <AnimatePresence mode="wait">
              <motion.div
-               key={currentMediaIndex}
-               initial={{ opacity: 0, y: 20 }}
-               animate={{ opacity: 1, y: 0 }}
-               exit={{ opacity: 0, y: -20 }}
-               transition={{ duration: 0.8, delay: 0.2 }}
+                key={currentMediaIndex}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="max-w-xl text-white"
              >
                 <div className="bg-black/30 backdrop-blur-xl border border-white/20 p-8 rounded-3xl shadow-2xl">
                   <p className="text-2xl font-medium mb-6 leading-relaxed">
@@ -276,16 +278,14 @@ export default function Login() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
                        <div className="h-12 w-12 rounded-full bg-white flex items-center justify-center shadow-lg">
-                         <Sunburst className="h-6 w-6 text-zinc-900" />
+                         <Sunburst className="h-6 w-6 text-zinc-900" aria-hidden="true" />
                        </div>
                        <div>
                          <p className="text-base font-semibold text-white">Antara AI Coach</p>
                          <p className="text-sm text-zinc-300">Student Success Team</p>
                        </div>
                     </div>
-                    
-                    {/* Carousel Progress Indicators */}
-                    <div className="flex gap-2 items-center">
+                    <div className="flex gap-2 items-center" aria-label="Carousel Progress">
                       {VIDEOS.map((_, index) => (
                         <div 
                           key={index}
@@ -302,8 +302,7 @@ export default function Login() {
              </motion.div>
            </AnimatePresence>
         </div>
-      </div>
-
-    </div>
+      </aside>
+    </main>
   );
 }

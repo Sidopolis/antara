@@ -62,7 +62,7 @@ app = FastAPI(title="Antara AI Backend - Pure LanceDB Architecture")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], 
+    allow_origins=[os.getenv("FRONTEND_URL", "http://localhost:5173")], 
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -77,17 +77,18 @@ MODEL_ID = "anthropic.claude-3-5-sonnet-20241022-v2:0"
 EMBEDDING_MODEL_ID = "amazon.titan-embed-text-v2:0"
 
 # --- AWS Cognito Auth Configuration ---
-COGNITO_USER_POOL_ID = os.getenv("COGNITO_USER_POOL_ID", "ap-south-1_RQE0iqB6L")
-COGNITO_CLIENT_ID = os.getenv("COGNITO_CLIENT_ID", "3dc82s1j1bks6lpdooohkf8f5d")
+COGNITO_USER_POOL_ID = os.getenv("COGNITO_USER_POOL_ID")
+COGNITO_CLIENT_ID = os.getenv("COGNITO_CLIENT_ID")
 AWS_REGION = os.getenv("AWS_REGION", "ap-south-1")
 
-JWKS_URL = f"https://cognito-idp.{AWS_REGION}.amazonaws.com/{COGNITO_USER_POOL_ID}/.well-known/jwks.json"
 JWKS = None
-try:
-    with urllib.request.urlopen(JWKS_URL) as response:
-        JWKS = json.loads(response.read().decode("utf-8"))
-except Exception as e:
-    print("Failed to fetch JWKS on startup:", e)
+if COGNITO_USER_POOL_ID:
+    JWKS_URL = f"https://cognito-idp.{AWS_REGION}.amazonaws.com/{COGNITO_USER_POOL_ID}/.well-known/jwks.json"
+    try:
+        with urllib.request.urlopen(JWKS_URL) as response:
+            JWKS = json.loads(response.read().decode("utf-8"))
+    except Exception as e:
+        print("Failed to fetch JWKS on startup:", e)
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 

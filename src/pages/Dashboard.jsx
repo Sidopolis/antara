@@ -130,8 +130,8 @@ export default function DashboardPage() {
   ];
 
   return (
-    <div className="relative z-20 mx-auto max-w-7xl py-10 lg:py-20">
-      <div className="px-8 text-center mb-16">
+    <main className="relative z-20 mx-auto max-w-7xl py-10 lg:py-20" role="main" aria-label="Student Dashboard">
+      <header className="px-8 text-center mb-16">
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -147,9 +147,9 @@ export default function DashboardPage() {
         >
           Powered by LanceDB RAG and Amazon Titan Embeddings. We analyze your journal logs and structure your thoughts for peak performance.
         </motion.p>
-      </div>
+      </header>
 
-      <div className="relative px-4">
+      <section className="relative px-4" aria-label="Dashboard Features">
         <motion.div 
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -157,23 +157,27 @@ export default function DashboardPage() {
           className="mt-12 grid grid-cols-1 rounded-3xl lg:grid-cols-6 border border-white/10 bg-black/40 backdrop-blur-xl overflow-hidden shadow-2xl"
         >
           {features.map((feature, idx) => (
-            <div 
+            <article 
               key={feature.title} 
               onClick={feature.onClick}
+              role={feature.onClick ? "button" : "region"}
+              tabIndex={feature.onClick ? 0 : undefined}
+              onKeyDown={feature.onClick ? (e) => e.key === 'Enter' && feature.onClick() : undefined}
+              aria-label={feature.title}
               className={cn("relative p-8", feature.className)}
             >
-              <div className="mb-4">{feature.icon}</div>
-              <p className="max-w-5xl text-left text-2xl tracking-tight text-white mb-2 font-medium">
+              <div className="mb-4" aria-hidden="true">{feature.icon}</div>
+              <h2 className="max-w-5xl text-left text-2xl tracking-tight text-white mb-2 font-medium">
                 {feature.title}
-              </p>
+              </h2>
               <p className="max-w-sm text-left text-sm font-normal text-gray-400">
                 {feature.description}
               </p>
               <div className="h-full w-full">{feature.content}</div>
-            </div>
+            </article>
           ))}
         </motion.div>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

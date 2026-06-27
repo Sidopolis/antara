@@ -1,5 +1,9 @@
 fastapi
 uvicorn
-requests
+python-jose
+boto3
+lancedb
+pytest
+httpx
 python-dotenv
 pydantic

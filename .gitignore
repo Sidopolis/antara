@@ -1,0 +1,8 @@
+node_modules/
+.env
+backend_python/.env
+backend_python/lancedb_data/
+backend_python/__pycache__/
+.venv/
+dist/
+.DS_Store

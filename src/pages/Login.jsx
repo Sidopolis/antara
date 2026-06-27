@@ -113,78 +113,85 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen w-full flex bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-sans">
-      
-      {/* LEFT SIDE: Form */}
-      <div className="w-full lg:w-1/2 flex flex-col p-8 sm:p-12 md:p-16 lg:p-24 relative z-10 overflow-y-auto">
-        
-        {/* Header / Logo */}
-        <div className="flex items-center gap-2 mb-12 lg:mb-20">
-          <div className="bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 p-1.5 rounded-lg shadow-sm">
-             <Sunburst className="h-5 w-5" />
-          </div>
-          <span className="font-bold text-lg">Antara Studio</span>
+    <div className="min-h-screen bg-zinc-950 flex items-center justify-center overflow-hidden p-4 sm:p-8">
+      <div className="w-full relative max-w-5xl overflow-hidden flex flex-col md:flex-row shadow-2xl rounded-3xl border border-zinc-800">
+        <div className="w-full h-full z-10 absolute bg-linear-to-t from-black/90 to-transparent pointer-events-none"></div>
+        <div className="flex absolute z-10 overflow-hidden backdrop-blur-xl pointer-events-none">
+          <div className="h-[40rem] z-10 w-[4rem] bg-linear-90 from-[#ffffff00] via-[#000000] via-[69%] to-[#ffffff30] opacity-30 overflow-hidden"></div>
+          <div className="h-[40rem] z-10 w-[4rem] bg-linear-90 from-[#ffffff00] via-[#000000] via-[69%] to-[#ffffff30] opacity-30 overflow-hidden"></div>
+          <div className="h-[40rem] z-10 w-[4rem] bg-linear-90 from-[#ffffff00] via-[#000000] via-[69%] to-[#ffffff30] opacity-30 overflow-hidden"></div>
+          <div className="h-[40rem] z-10 w-[4rem] bg-linear-90 from-[#ffffff00] via-[#000000] via-[69%] to-[#ffffff30] opacity-30 overflow-hidden"></div>
+          <div className="h-[40rem] z-10 w-[4rem] bg-linear-90 from-[#ffffff00] via-[#000000] via-[69%] to-[#ffffff30] opacity-30 overflow-hidden"></div>
+          <div className="h-[40rem] z-10 w-[4rem] bg-linear-90 from-[#ffffff00] via-[#000000] via-[69%] to-[#ffffff30] opacity-30 overflow-hidden"></div>
         </div>
-
-        <div className="w-full max-w-[400px] mx-auto flex-1 flex flex-col justify-center">
-          <h1 className="text-3xl font-semibold tracking-tight mb-2">
-            {isLogin ? "Welcome back" : "Create an account"}
+        
+        {/* Decorative background shapes */}
+        <div className="w-[15rem] h-[15rem] bg-orange-500 absolute z-0 rounded-full bottom-0 -left-10 blur-3xl opacity-20 pointer-events-none"></div>
+        <div className="w-[8rem] h-[5rem] bg-white absolute z-0 rounded-full bottom-20 left-20 blur-2xl opacity-10 pointer-events-none"></div>
+ 
+        <div className="bg-zinc-950 text-white p-8 md:p-12 md:w-1/2 relative flex flex-col justify-end overflow-hidden border-r border-zinc-800/50">
+          <h1 className="text-3xl md:text-4xl font-medium leading-tight z-20 tracking-tight relative mb-4">
+            {isLogin ? "Welcome back to Antara Studio." : "Design and dev partner for students and founders."}
           </h1>
-          <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-8">
-            {isLogin ? "Welcome back! Please enter your details." : "Enter your email below to create your account"}
+          <p className="text-zinc-400 z-20 relative text-lg">
+            {isLogin 
+              ? "Stay calm, stay focused, and achieve your goals with your personal student coach." 
+              : "Join thousands of students taking control of their academic journey."}
           </p>
+        </div>
+ 
+        <div className="p-8 md:p-12 md:w-1/2 flex flex-col bg-zinc-900 z-20 text-zinc-100">
+          <div className="flex flex-col items-start mb-8">
+            <div className="text-orange-500 mb-4 bg-orange-500/10 p-2.5 rounded-xl">
+              <Sunburst className="h-8 w-8" />
+            </div>
+            <h2 className="text-3xl font-medium mb-2 tracking-tight">
+              {isLogin ? "Sign in" : "Get Started"}
+            </h2>
+            <p className="text-left text-zinc-400">
+              Welcome to Antara Studio — {isLogin ? "Please enter your details." : "Let's get started"}
+            </p>
+          </div>
 
           {successMessage && (
-            <div className="bg-emerald-50 border border-emerald-200 dark:bg-emerald-500/10 dark:border-emerald-500/20 text-emerald-600 dark:text-emerald-400 p-3 rounded-lg mb-6 text-sm">
+            <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 p-3 rounded-lg mb-6 text-sm">
               {successMessage}
             </div>
           )}
-
-          <div className="flex flex-col sm:flex-row gap-3 mb-6">
-             <button type="button" className="flex-1 flex items-center justify-center gap-2 px-4 py-2 border border-zinc-200 dark:border-zinc-800 rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors text-sm font-medium">
-               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-               Google
-             </button>
-             <button type="button" className="flex-1 flex items-center justify-center gap-2 px-4 py-2 border border-zinc-200 dark:border-zinc-800 rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors text-sm font-medium">
-               <svg className="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.938 5.858-5.938 1.258 0 2.871.21 2.871.21v3.136h-1.616c-1.58 0-1.879.791-1.879 2.092v2.08h3.385l-.546 3.667h-2.839v7.98h-5.234z"/></svg>
-               Facebook
-             </button>
-          </div>
-
-          <div className="relative mb-6">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-zinc-200 dark:border-zinc-800"></div>
-            </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-white dark:bg-zinc-950 px-2 text-zinc-500">Or continue with</span>
-            </div>
-          </div>
-
-          <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-            <div className="space-y-2">
-              <label htmlFor="email" className="text-sm font-medium leading-none">
-                Email address*
+ 
+          <form
+            className="flex flex-col gap-4"
+            onSubmit={handleSubmit}
+            noValidate
+          >
+            <div>
+              <label htmlFor="email" className="block text-sm mb-2 text-zinc-300">
+                Your email
               </label>
               <input
                 type="email"
                 id="email"
-                placeholder="Enter your email address"
-                className={`flex h-10 w-full rounded-md border bg-white dark:bg-zinc-900/50 px-3 py-2 text-sm placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all ${
-                  emailError ? "border-red-500 focus:ring-red-500" : "border-zinc-300 dark:border-zinc-800 focus:ring-zinc-900 dark:focus:ring-zinc-400"
+                placeholder="hi@antarastudio.in"
+                className={`text-sm w-full py-2.5 px-3 border rounded-lg focus:outline-none focus:ring-1 bg-zinc-950 text-zinc-100 placeholder:text-zinc-600 focus:ring-orange-500 transition-colors ${
+                  emailError ? "border-red-500 focus:ring-red-500" : "border-zinc-800 hover:border-zinc-700"
                 }`}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              {emailError && <p className="text-red-500 text-xs mt-1">{emailError}</p>}
+              {emailError && (
+                <p className="text-red-500 text-xs mt-1">
+                  {emailError}
+                </p>
+              )}
             </div>
-
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <label htmlFor="password" className="text-sm font-medium leading-none">
-                  Password*
+ 
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <label htmlFor="password" className="block text-sm text-zinc-300">
+                  {isLogin ? "Password" : "Create new password"}
                 </label>
                 {isLogin && (
-                  <button type="button" className="text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors">
+                  <button type="button" className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors">
                     Forgot Password?
                   </button>
                 )}
@@ -194,8 +201,8 @@ export default function Login() {
                   type={showPassword ? "text" : "password"}
                   id="password"
                   placeholder="••••••••••••"
-                  className={`flex h-10 w-full rounded-md border bg-white dark:bg-zinc-900/50 px-3 py-2 text-sm placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all pr-10 ${
-                    passwordError ? "border-red-500 focus:ring-red-500" : "border-zinc-300 dark:border-zinc-800 focus:ring-zinc-900 dark:focus:ring-zinc-400"
+                  className={`text-sm w-full py-2.5 px-3 border rounded-lg focus:outline-none focus:ring-1 bg-zinc-950 text-zinc-100 placeholder:text-zinc-600 focus:ring-orange-500 transition-colors pr-10 ${
+                    passwordError ? "border-red-500 focus:ring-red-500" : "border-zinc-800 hover:border-zinc-700"
                   }`}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -203,106 +210,40 @@ export default function Login() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300 transition-colors"
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
               </div>
-              {passwordError && <p className="text-red-500 text-xs mt-1">{passwordError}</p>}
+              {passwordError && (
+                <p className="text-red-500 text-xs mt-1">
+                  {passwordError}
+                </p>
+              )}
             </div>
-
+ 
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full flex items-center justify-center h-10 px-4 py-2 mt-6 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-md font-medium text-sm hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors disabled:opacity-50"
+              className="w-full flex items-center justify-center bg-orange-500 hover:bg-orange-600 text-white font-medium py-2.5 px-4 rounded-lg transition-colors mt-2 disabled:opacity-50"
             >
               {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              {isLogin ? "Sign in to Studio" : "Create Account"}
+              {isLogin ? "Sign in to Studio" : "Create a new account"}
             </button>
+ 
+            <div className="text-center text-zinc-500 text-sm mt-4">
+              {isLogin ? "New on our platform?" : "Already have an account?"}{" "}
+              <button 
+                type="button" 
+                onClick={() => { setIsLogin(!isLogin); setEmailError(""); setPasswordError(""); setSuccessMessage(""); }}
+                className="text-white font-medium underline hover:text-orange-400 transition-colors"
+              >
+                {isLogin ? "Create an account" : "Login"}
+              </button>
+            </div>
           </form>
-
-          <div className="mt-8 text-center text-sm text-zinc-500">
-             {isLogin ? "New on our platform? " : "Already have an account? "}
-             <button 
-               type="button"
-               onClick={() => { setIsLogin(!isLogin); setEmailError(""); setPasswordError(""); setSuccessMessage(""); }}
-               className="font-medium text-zinc-900 dark:text-white underline hover:no-underline underline-offset-4"
-             >
-               {isLogin ? "Create an account" : "Sign in"}
-             </button>
-          </div>
         </div>
-               className="text-white hover:underline decoration-zinc-500 underline-offset-4"
-            >
-              {isLogin ? "Create an account" : "Sign in"}
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Right side: Dynamic Video Media Panel */}
-      <aside className="hidden lg:flex w-1/2 relative bg-zinc-900 overflow-hidden" aria-hidden="true">
-        <div className="absolute inset-0 z-0">
-           <AnimatePresence mode="popLayout">
-             <motion.video
-               key={currentMediaIndex}
-               src={VIDEOS[currentMediaIndex]}
-               autoPlay
-               muted
-               loop
-               playsInline
-               className="absolute inset-0 w-full h-full object-cover"
-               initial={{ opacity: 0, scale: 1.05 }}
-               animate={{ opacity: 1, scale: 1 }}
-               exit={{ opacity: 0 }}
-               transition={{ duration: 1.5, ease: "easeInOut" }}
-             />
-           </AnimatePresence>
-           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
-        </div>
-
-        <div className="relative z-20 w-full flex flex-col justify-end p-16">
-           <AnimatePresence mode="wait">
-             <motion.div
-                key={currentMediaIndex}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className="max-w-xl text-white"
-             >
-                <div className="bg-black/30 backdrop-blur-xl border border-white/20 p-8 rounded-3xl shadow-2xl">
-                  <p className="text-2xl font-medium mb-6 leading-relaxed">
-                    "{QUOTES[currentMediaIndex]}"
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                       <div className="h-12 w-12 rounded-full bg-white flex items-center justify-center shadow-lg">
-                         <Sunburst className="h-6 w-6 text-zinc-900" aria-hidden="true" />
-                       </div>
-                       <div>
-                         <p className="text-base font-semibold text-white">Antara AI Coach</p>
-                         <p className="text-sm text-zinc-300">Student Success Team</p>
-                       </div>
-                    </div>
-                    <div className="flex gap-2 items-center" aria-label="Carousel Progress">
-                      {VIDEOS.map((_, index) => (
-                        <div 
-                          key={index}
-                          className={`h-1.5 rounded-full transition-all duration-500 ease-in-out ${
-                            index === currentMediaIndex 
-                              ? "w-8 bg-white opacity-100" 
-                              : "w-4 bg-white opacity-30"
-                          }`}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-             </motion.div>
-           </AnimatePresence>
-        </div>
-      </aside>
-    </main>
+      </div>
+    </div>
   );
 }

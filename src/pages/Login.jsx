@@ -114,134 +114,160 @@ export default function Login() {
 
   return (
     <div className="min-h-screen bg-zinc-950 flex items-center justify-center overflow-hidden p-4 sm:p-8">
-      <div className="w-full relative max-w-5xl overflow-hidden flex flex-col md:flex-row shadow-2xl rounded-3xl border border-zinc-800">
-        <div className="w-full h-full z-10 absolute bg-linear-to-t from-black/90 to-transparent pointer-events-none"></div>
-        <div className="flex absolute z-10 overflow-hidden backdrop-blur-xl pointer-events-none">
-          <div className="h-[40rem] z-10 w-[4rem] bg-linear-90 from-[#ffffff00] via-[#000000] via-[69%] to-[#ffffff30] opacity-30 overflow-hidden"></div>
-          <div className="h-[40rem] z-10 w-[4rem] bg-linear-90 from-[#ffffff00] via-[#000000] via-[69%] to-[#ffffff30] opacity-30 overflow-hidden"></div>
-          <div className="h-[40rem] z-10 w-[4rem] bg-linear-90 from-[#ffffff00] via-[#000000] via-[69%] to-[#ffffff30] opacity-30 overflow-hidden"></div>
-          <div className="h-[40rem] z-10 w-[4rem] bg-linear-90 from-[#ffffff00] via-[#000000] via-[69%] to-[#ffffff30] opacity-30 overflow-hidden"></div>
-          <div className="h-[40rem] z-10 w-[4rem] bg-linear-90 from-[#ffffff00] via-[#000000] via-[69%] to-[#ffffff30] opacity-30 overflow-hidden"></div>
-          <div className="h-[40rem] z-10 w-[4rem] bg-linear-90 from-[#ffffff00] via-[#000000] via-[69%] to-[#ffffff30] opacity-30 overflow-hidden"></div>
-        </div>
+      <div className="w-full relative max-w-[1200px] shadow-2xl rounded-[2rem] border border-zinc-800/80 bg-zinc-900 overflow-hidden min-h-[700px] flex flex-col md:flex-row">
         
-        {/* Decorative background shapes */}
-        <div className="w-[15rem] h-[15rem] bg-orange-500 absolute z-0 rounded-full bottom-0 -left-10 blur-3xl opacity-20 pointer-events-none"></div>
-        <div className="w-[8rem] h-[5rem] bg-white absolute z-0 rounded-full bottom-20 left-20 blur-2xl opacity-10 pointer-events-none"></div>
- 
-        <div className="bg-zinc-950 text-white p-8 md:p-12 md:w-1/2 relative flex flex-col justify-end overflow-hidden border-r border-zinc-800/50">
-          <h1 className="text-3xl md:text-4xl font-medium leading-tight z-20 tracking-tight relative mb-4">
-            {isLogin ? "Welcome back to Antara Studio." : "Design and dev partner for students and founders."}
-          </h1>
-          <p className="text-zinc-400 z-20 relative text-lg">
-            {isLogin 
-              ? "Stay calm, stay focused, and achieve your goals with your personal student coach." 
-              : "Join thousands of students taking control of their academic journey."}
-          </p>
-        </div>
- 
-        <div className="p-8 md:p-12 md:w-1/2 flex flex-col bg-zinc-900 z-20 text-zinc-100">
-          <div className="flex flex-col items-start mb-8">
-            <div className="text-orange-500 mb-4 bg-orange-500/10 p-2.5 rounded-xl">
-              <Sunburst className="h-8 w-8" />
-            </div>
-            <h2 className="text-3xl font-medium mb-2 tracking-tight">
-              {isLogin ? "Sign in" : "Get Started"}
-            </h2>
-            <p className="text-left text-zinc-400">
-              Welcome to Antara Studio — {isLogin ? "Please enter your details." : "Let's get started"}
-            </p>
+        {/* LEFT SIDE: Video Panel (hidden on mobile) */}
+        <div className="hidden md:flex w-full md:w-1/2 relative flex-col justify-end p-8 md:p-12 overflow-hidden border-r border-zinc-800/50">
+          <div className="absolute inset-0 z-0">
+             <AnimatePresence mode="popLayout">
+               <motion.video
+                 key={currentMediaIndex}
+                 src={VIDEOS[currentMediaIndex]}
+                 autoPlay
+                 muted
+                 loop
+                 playsInline
+                 className="absolute inset-0 w-full h-full object-cover"
+                 initial={{ opacity: 0, scale: 1.05 }}
+                 animate={{ opacity: 1, scale: 1 }}
+                 exit={{ opacity: 0 }}
+                 transition={{ duration: 1.5, ease: "easeInOut" }}
+               />
+             </AnimatePresence>
+             <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent z-10" />
           </div>
 
-          {successMessage && (
-            <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 p-3 rounded-lg mb-6 text-sm">
-              {successMessage}
+          <div className="relative z-20">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-medium leading-tight text-white tracking-tight mb-4 drop-shadow-xl">
+              {isLogin ? "Welcome back to Antara Studio." : "Your AI companion for student success."}
+            </h1>
+            <p className="text-zinc-200 text-lg drop-shadow-md">
+              "{QUOTES[currentMediaIndex]}"
+            </p>
+            
+            <div className="flex gap-2 items-center mt-8" aria-label="Carousel Progress">
+              {VIDEOS.map((_, index) => (
+                <div 
+                  key={index}
+                  className={`h-1.5 rounded-full transition-all duration-500 ease-in-out ${
+                    index === currentMediaIndex 
+                      ? "w-8 bg-white opacity-100" 
+                      : "w-4 bg-white opacity-40"
+                  }`}
+                />
+              ))}
             </div>
-          )}
+          </div>
+        </div>
  
-          <form
-            className="flex flex-col gap-4"
-            onSubmit={handleSubmit}
-            noValidate
-          >
-            <div>
-              <label htmlFor="email" className="block text-sm mb-2 text-zinc-300">
-                Your email
-              </label>
-              <input
-                type="email"
-                id="email"
-                placeholder="hi@antarastudio.in"
-                className={`text-sm w-full py-2.5 px-3 border rounded-lg focus:outline-none focus:ring-1 bg-zinc-950 text-zinc-100 placeholder:text-zinc-600 focus:ring-orange-500 transition-colors ${
-                  emailError ? "border-red-500 focus:ring-red-500" : "border-zinc-800 hover:border-zinc-700"
-                }`}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              {emailError && (
-                <p className="text-red-500 text-xs mt-1">
-                  {emailError}
-                </p>
-              )}
+        {/* RIGHT SIDE: Form */}
+        <div className="w-full md:w-1/2 p-8 md:p-16 flex flex-col bg-zinc-950 z-20 text-zinc-100 relative justify-center">
+          {/* Subtle glow behind the form for flair */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-orange-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+          <div className="relative z-10 w-full max-w-sm mx-auto">
+            <div className="flex flex-col items-start mb-8">
+              <div className="text-orange-500 mb-6 bg-orange-500/10 p-3 rounded-2xl border border-orange-500/20 shadow-inner">
+                <Sunburst className="h-8 w-8" />
+              </div>
+              <h2 className="text-3xl font-semibold mb-2 tracking-tight">
+                {isLogin ? "Sign in" : "Get Started"}
+              </h2>
+              <p className="text-left text-zinc-400">
+                Welcome to Antara Studio — {isLogin ? "Please enter your details." : "Let's get started"}
+              </p>
             </div>
- 
-            <div>
-              <div className="flex justify-between items-center mb-2">
-                <label htmlFor="password" className="block text-sm text-zinc-300">
-                  {isLogin ? "Password" : "Create new password"}
+
+            {successMessage && (
+              <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 p-3 rounded-lg mb-6 text-sm">
+                {successMessage}
+              </div>
+            )}
+   
+            <form
+              className="flex flex-col gap-5"
+              onSubmit={handleSubmit}
+              noValidate
+            >
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium mb-2 text-zinc-300">
+                  Your email
                 </label>
-                {isLogin && (
-                  <button type="button" className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors">
-                    Forgot Password?
-                  </button>
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="hi@antarastudio.in"
+                  className={`text-sm w-full py-3 px-4 border rounded-xl focus:outline-none focus:ring-1 bg-zinc-950 text-zinc-100 placeholder:text-zinc-600 focus:ring-orange-500 transition-all shadow-sm ${
+                    emailError ? "border-red-500 focus:ring-red-500" : "border-zinc-800 hover:border-zinc-700"
+                  }`}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                {emailError && (
+                  <p className="text-red-500 text-xs mt-1.5 font-medium">
+                    {emailError}
+                  </p>
                 )}
               </div>
-              <div className="relative">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  id="password"
-                  placeholder="••••••••••••"
-                  className={`text-sm w-full py-2.5 px-3 border rounded-lg focus:outline-none focus:ring-1 bg-zinc-950 text-zinc-100 placeholder:text-zinc-600 focus:ring-orange-500 transition-colors pr-10 ${
-                    passwordError ? "border-red-500 focus:ring-red-500" : "border-zinc-800 hover:border-zinc-700"
-                  }`}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300 transition-colors"
+   
+              <div>
+                <div className="flex justify-between items-center mb-2">
+                  <label htmlFor="password" className="block text-sm font-medium text-zinc-300">
+                    {isLogin ? "Password" : "Create new password"}
+                  </label>
+                  {isLogin && (
+                    <button type="button" className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors">
+                      Forgot Password?
+                    </button>
+                  )}
+                </div>
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    id="password"
+                    placeholder="••••••••••••"
+                    className={`text-sm w-full py-3 px-4 border rounded-xl focus:outline-none focus:ring-1 bg-zinc-950 text-zinc-100 placeholder:text-zinc-600 focus:ring-orange-500 transition-all shadow-sm pr-11 ${
+                      passwordError ? "border-red-500 focus:ring-red-500" : "border-zinc-800 hover:border-zinc-700"
+                    }`}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300 transition-colors"
+                  >
+                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
+                </div>
+                {passwordError && (
+                  <p className="text-red-500 text-xs mt-1.5 font-medium">
+                    {passwordError}
+                  </p>
+                )}
+              </div>
+   
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full flex items-center justify-center bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-4 rounded-xl transition-all mt-2 disabled:opacity-50 shadow-md shadow-orange-500/20 active:scale-[0.98]"
+              >
+                {isLoading && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
+                {isLogin ? "Sign in to Studio" : "Create a new account"}
+              </button>
+   
+              <div className="text-center text-zinc-500 text-sm mt-4">
+                {isLogin ? "New on our platform?" : "Already have an account?"}{" "}
+                <button 
+                  type="button" 
+                  onClick={() => { setIsLogin(!isLogin); setEmailError(""); setPasswordError(""); setSuccessMessage(""); }}
+                  className="text-white font-medium underline hover:text-orange-400 transition-colors"
                 >
-                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  {isLogin ? "Create an account" : "Login"}
                 </button>
               </div>
-              {passwordError && (
-                <p className="text-red-500 text-xs mt-1">
-                  {passwordError}
-                </p>
-              )}
-            </div>
- 
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="w-full flex items-center justify-center bg-orange-500 hover:bg-orange-600 text-white font-medium py-2.5 px-4 rounded-lg transition-colors mt-2 disabled:opacity-50"
-            >
-              {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              {isLogin ? "Sign in to Studio" : "Create a new account"}
-            </button>
- 
-            <div className="text-center text-zinc-500 text-sm mt-4">
-              {isLogin ? "New on our platform?" : "Already have an account?"}{" "}
-              <button 
-                type="button" 
-                onClick={() => { setIsLogin(!isLogin); setEmailError(""); setPasswordError(""); setSuccessMessage(""); }}
-                className="text-white font-medium underline hover:text-orange-400 transition-colors"
-              >
-                {isLogin ? "Create an account" : "Login"}
-              </button>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </div>
